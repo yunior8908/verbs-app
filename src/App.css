@@ -80,7 +80,8 @@
   font-size: 16px;
 }
 
-.repeated-verb {
+.repeated-verb,
+.invalid {
   color: #ff4040;
 }
 

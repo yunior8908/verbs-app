@@ -9,6 +9,14 @@ function Button(props) {
   return <button type="button" className="button" {...props} />;
 }
 
+let timeout;
+function debounce(wait, cb) {
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    cb();
+  }, wait);
+}
+
 function App() {
   const [verbs, setVerbs] = useState(
     JSON.parse(localStorage.getItem("verbs")) || {}
@@ -117,9 +125,26 @@ function App() {
     });
   };
 
+  const onFormChange = (e) => {
+    debounce(500, () => {
+      const value = e.target.value;
+      const btn = e.target.form.querySelector("button[type=submit]");
+
+      const exists = list.some(([, verbs]) => verbs.includes(value));
+
+      if (exists) {
+        e.target.classList.add("invalid");
+        btn.setAttribute("disabled", true);
+      } else {
+        e.target.classList.remove("invalid");
+        btn.removeAttribute("disabled");
+      }
+    });
+  };
+
   return (
     <div className="grid">
-      <form onSubmit={addGroup} className="flex items-center ">
+      <form onSubmit={addGroup} className="flex items-center">
         <Input
           name="group_name"
           type="text"
@@ -144,7 +169,11 @@ function App() {
                   x
                 </Button>
               </form>
-              <form onSubmit={addVerb} className="flex items-center ">
+              <form
+                onSubmit={addVerb}
+                className="flex items-center "
+                onChange={onFormChange}
+              >
                 <Input type="hidden" name="group_name" value={group} />
                 <Input
                   type="text"
@@ -154,7 +183,7 @@ function App() {
                   autoComplete="off"
                 />
 
-                <Button type="submit" name="add_verb">
+                <Button type="submit" name="add_verb" disabled>
                   +
                 </Button>
               </form>
