@@ -167,7 +167,7 @@ function App() {
                   className="flex items-center justify-between"
                 >
                   <span>{i + 1}. </span>
-                  <div className="item-list-content flex flex-1">
+                  <div className="item-list-content flex flex-1 justify-between">
                     <p>{verb}</p>
                     <p
                       className={
