@@ -166,6 +166,7 @@ function App() {
                   key={verb + i}
                   className="flex items-center justify-between"
                 >
+                  <span>{i + 1}. </span>
                   <div className="item-list-content flex flex-1">
                     <p>{verb}</p>
                     <p
