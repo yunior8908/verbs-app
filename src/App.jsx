@@ -183,7 +183,7 @@ function App() {
                   autoComplete="off"
                 />
 
-                <Button type="submit" name="add_verb" disabled>
+                <Button type="submit" name="add_verb">
                   +
                 </Button>
               </form>
